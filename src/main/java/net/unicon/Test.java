@@ -23,7 +23,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Test implements ApplicationRunner {
-    String USAGE = "Usage: java Test [--proxy=<http://proxy.example.com:port>] [--forced] <https://address.server.edu> [timeout]";
+    String USAGE = "Usage: java -jar <app.jar> [--debug] [--protocols=TLSv1,TLSv1.1,TLSv1.2] "
+        + "[--proxy=<http://proxy.example.com:port>] [--forced] "
+        + "<https://address.server.edu> [timeout]";
+
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static void main(String[] args) throws Exception {
@@ -41,6 +44,14 @@ public class Test implements ApplicationRunner {
 
             logger.info("Received host address " + args.getNonOptionArgs().get(0));
             URL constructedUrl = new URL(args.getNonOptionArgs().get(0));
+
+            if (args.containsOption("debug")) {
+                System.setProperty("javax.net.debug", "all");
+            }
+            if (args.containsOption("protocols")) {
+                System.setProperty("https.protocols", args.getOptionValues("protocols").get(0));
+            }
+            
 
             if (args.containsOption("proxy")) {
                 if (args.getOptionValues("proxy").size() != 1) {
