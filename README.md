@@ -9,7 +9,7 @@ mvn clean package
 
 ## Usage
 
-- Download the JAR from [here](https://github.com/UniconLabs/java-keystore-ssl-test/releases)
+- Download the JAR from [here](https://github.com/mmoayyed/java-keystore-ssl-test/releases)
 
 - Run:
 
